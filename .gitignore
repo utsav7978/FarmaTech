@@ -1,0 +1,18 @@
+# ======================
+# Node / Frontend
+# ======================
+frontend/node_modules/
+frontend/.env
+
+# ======================
+# Java / Spring Boot
+# ======================
+backend/target/
+backend/*.log
+
+# ======================
+# IDE & OS
+# ======================
+.vscode/
+.idea/
+.DS_Store

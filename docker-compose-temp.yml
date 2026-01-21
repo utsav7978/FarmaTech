@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: farmer-platform-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: farmer_platform
+      MYSQL_USER: farmer_user
+      MYSQL_PASSWORD: farmer_password
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - farmer-network
+
+  app:
+    build: .
+    container_name: farmer-platform-app
+    environment:
+      DB_URL: jdbc:mysql://mysql:3306/farmer_platform
+      DB_USERNAME: farmer_user
+      DB_PASSWORD: farmer_password
+      JWT_SECRET: dockerSecretKey123456789012345678901234567890
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    networks:
+      - farmer-network
+
+volumes:
+  mysql_data:
+
+networks:
+  farmer-network:
+    driver: bridge
